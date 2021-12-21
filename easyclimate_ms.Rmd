@@ -31,7 +31,7 @@ csl: journal-of-vegetation-science.csl
 # csl: https://www.zotero.org/styles/ecology
 ---
 
-^1^ Department of Landscape Architecture, Graduate School of Design, Harvard University, Cambridge,
+^1^ Department of Landscape Architecture, Graduate School of Design, Harvard University, USA
 
 ^2^ Grupo de Ecología Forestal y Restauración (FORECO), Universidad de Alcalá, Spain
 
@@ -51,7 +51,7 @@ Verónica Cruz-Alonso, Harvard University, Cambridge, MA, USA. Email: [veronica.
 
 # FUNDING INFORMATION
 
-VCA was supported by the Real Colegio Complutense Postdoctoral Fellowship 2020 and XXX. FRS was supported by the VI Plan Propio de Investigación of Universidad de Sevilla (VI PPIT-US).
+VCA was supported by the Real Colegio Complutense Postdoctoral Fellowship 2020. FRS was supported by the VI Plan Propio de Investigación of Universidad de Sevilla (VI PPIT-US).
 
 # ABSTRACT
 
@@ -60,26 +60,19 @@ Write your abstract here (200 WORDS MAXIMUM)
 *Keywords*: R package, climate, Europe, reproducibility, cloud-optimised geotiffs, (8-12 KEYWORDS)
 
 ```{r setup, include=FALSE, cache=FALSE, message = FALSE}
-
 library("knitr")
-
 ### Chunk options: see http://yihui.name/knitr/options/ ###
 ## Text results
 opts_chunk$set(echo = TRUE, warning = TRUE, message = FALSE)
-
 ## Code decoration
 opts_chunk$set(tidy = TRUE, comment = NA, highlight = TRUE)
-
 ## Cache
 opts_chunk$set(cache = TRUE, cache.path = "output/cache/")
-
 ## Plots
 opts_chunk$set(fig.path = "output/figures/", dpi = 300)
-
 ```
 
-
-```{r knitcitations, cache = FALSE}
+```{r knitcitations, cache=FALSE, include=FALSE}
 library(knitcitations)
 cleanbib()   
 cite_options(citation_format = "pandoc")
@@ -87,13 +80,13 @@ cite_options(citation_format = "pandoc")
 
 # INTRODUCTION
 
-In this paper we present *easyclimate* a package to process and download climatic data with R `r citep(citation())` available from the Comprehensive R Archive Network (CRAN; link). In the last decades, ecological science and application has experienced an increasing demand of harmonized climatic data at wide spatial scales and spanning long temporal series (REF). In this context, *easyclimate* has been developed to facilitate the downloading and processing of high-resolution (1 km\^2) daily climate data (precipitation, minimum and maximum temperatures) for Europe. Data are currently available from 1950 to 2020 and hosted at [University of Natural Resources and Life Sciences, Vienna, Austria](https://boku.ac.at/en/wabo/waldbau/wir-ueber-uns/daten). This climatic dataset was originally built by Moreno & Hasenauer [@moreno2016spatial] and further developed by W. Rammer, C. Pucher & M. Neumann. For this R package we implemented Cloud-Optimised Geotiffs so that the user can obtain daily climate data for thousands of sites and days within minutes, without having to download huge rasters.
+In this paper we present *easyclimate* a package to process and download climatic data with R [@R_Core_Team_2021] available from the Comprehensive R Archive Network (CRAN; **link**). In the last decades, ecological science and application has experienced an increasing demand of harmonized climatic data at wide spatial scales and spanning long temporal series (e.g. for the study of the effects of climate change on vegetation, [@Ruiz-Benito2020]). In this context, *easyclimate* has been developed to facilitate the downloading and processing of high-resolution (1 km\^2) daily climate data (precipitation, minimum and maximum temperatures) for Europe. Data are currently available from 1950 to 2020 and hosted at [University of Natural Resources and Life Sciences, Vienna, Austria](https://boku.ac.at/en/wabo/waldbau/wir-ueber-uns/daten). This climatic dataset was originally built by Moreno & Hasenauer [@moreno2016spatial] and further developed by W. Rammer, C. Pucher & M. Neumann. It is a downscaled dataset based on [WorldCllim](https://worldclim.org/data/worldclim21.html#) and [E-Obs](https://surfobs.climate.copernicus.eu/dataaccess/access_eobs.php#datafiles). For this R package we implemented Cloud-Optimised Geotiffs so that the user can obtain daily climate data for thousands of sites and days within minutes, without having to download huge rasters.
 
 # FUNCTIONALITY
 
 The main function in *easyclimate* is *get_daily_climate*, which extracts daily climate data for a given set of coordinates (points or polygons) and a given period of days or years (see examples in *get_daily_climate* [help page](https://verughub.github.io/easyclimate/reference/get_daily_climate.html), and the vignettes [Analysing the climate at spatial points for a given period](https://verughub.github.io/easyclimate/articles/points-df-mat-sf.html) and [Analysing the climate of an area for a given period](https://verughub.github.io/easyclimate/articles/polygons-raster.html)). The output can be either a dataframe (\@ref(tab:Table-1)) or a raster (\@ref(fig:Fig-1)) with daily climatic values for each point or polygon.
 
-```{r example}
+```{r example df}
 library(easyclimate)
 
 coords <- matrix(c(-5.36, 37.40), ncol = 2)
@@ -103,7 +96,7 @@ prec <- get_daily_climate(coords,
                           climatic_var = "Prcp")
 ```
 
-```{r }
+```{r example raster}
 library(terra)
 
 coords_poly <- vect("POLYGON ((-4.5 41, -4.5 40.5, -5 40.5, -5 41))")
@@ -112,14 +105,14 @@ ras_tmax <- get_daily_climate(
   coords_poly,
   period = c("2012-01-01", "2012-08-01"),
   climatic_var = "Tmax",
-  output = "raster" # return raster
+  output = "raster" 
   )
 
 ```
 
 Additionally, *easyclimate* yields tidy datasets that allow the calculation of climatic variables following the [tidyverse](https://www.tidyverse.org/) philosophy. In the next example we download daily climatic data for a specific location, a five-year period and store it in a dataframe.
 
-```{r}
+```{r tidy dataset}
 
 library(dplyr)
 
@@ -138,22 +131,13 @@ tmax <- get_daily_climate(coords,
                           climatic_var = "Tmax")
 
 daily <- prec %>% 
-  full_join(tmin) %>% 
-  full_join(tmax) 
-
-```
-
-Temperature and precipitation units are ºC × 100 and mm × 100, respectively, to avoid floating values. Here we convert them to ºC and mm, and calculate the daily mean temperature:
-
-```{r}
-realvalue <- function(x) {x/100}
-
-daily <- daily %>% 
-  mutate(across(c(Prcp, Tmin, Tmax), realvalue)) %>%
-  mutate(Tmean = (Tmin + Tmax) / 2, #Daily mean temperature
+  full_join(tmin %>% select(ID_coords, date, Tmin)) %>% 
+  full_join(tmax %>% select(ID_coords, date, Tmax)) %>% 
+  mutate(Tmean = (Tmin + Tmax) / 2, 
          date = as.Date(date),
          month = format(date, format = "%m"),
          year = format(date, format = "%Y"))
+
 ```
 
 To calculate average temperatures and accumulated precipitation by site or time period (\@ref(tab:Table-2)) we can use `group_by` and `summarise` from `dplyr`, or `by` and `aggregate` from base R:
@@ -165,38 +149,82 @@ yearclimate <- daily %>%
   summarise(Tmin.year = mean(Tmin),
             Tmean.year = mean(Tmean),
             Tmax.year = mean(Tmax),
-            Prcp.year = sum(Prcp)) 
+            Prcp.year = sum(Prcp))
 ```
 
-The results of the package *easyclimate* can be used directly or with simple calculations as the shown previously as input of other packages to calculate climatic variables (e.g. [climInd](https://cran.r-project.org/web/packages/ClimInd/index.html), [SPEI](https://cran.r-project.org/web/packages/SPEI/index.html)).
+The results of the package *easyclimate* can be used directly or with simple calculations as the shown previously as input of other packages to calculate climatic indices (e.g. [climInd](https://cran.r-project.org/web/packages/ClimInd/index.html), [SPEI](https://cran.r-project.org/web/packages/SPEI/index.html)).
 
 # SAVINGS IN TIME
 
-Example of script to download the rasters and extract values for a polygon or come points and the time needed. Same with easyclimate.
+The dataset is accessible to free download as raster layers tiled or for the entire Europe. However, if only climatic information for specific areas is needed, Cloud-Optimised Geotiffs suppose a high reduction in time. In the next example we download daily precipitation for one year in an area of *ca*. 100 km\^2 using the traditional and the *easyclimate* method. There is a reduction in **XX** minutes in the processing time.
+
+```{r eval=FALSE, include=FALSE}
+
+library(terra)
+library(RCurl)
+
+# 1. Traditional method
+
+coords_poly <- vect("POLYGON ((-5.039 40.913, -4.919 40.913, -4.918 40.825, -5.039 40.825))")
+
+url <- "ftp://palantir.boku.ac.at/Public/ClimateData/TiledClimateData/B/9/Prcp/2010_B_9.tif"
+
+out <- "C:/Users/veruk/Desktop/Disco/easyclimate/easyclimate_ms/Prcp2010_B_9.tif"
+
+t1.1 <- Sys.time()
+
+try(getURL(url)) #I can not access to the server and I don't know how to do it in R
+try(GET(url, authenticate('guest', ""), write_disk(out, overwrite = TRUE)))
+
+raster1 <- terra::rast("C:/Users/veruk/Desktop/Disco/easyclimate/easyclimate_ms/Prcp2010_B_9.tif") #It would be necessary to have a reproducible example not including my specific path
+raster1 <- terra::extract(rasters1, coords_poly, xy = TRUE)
+
+t1.2 <- Sys.time()
+
+t1.1-t1.2
+
+```
+
+```{r eval=FALSE, include=FALSE}
+
+# 2. With easyclimate
+
+t2.1 <- Sys.time()
+
+raster2 <- get_daily_climate(
+  coords_poly,
+  period = 2010,
+  climatic_var = "Prcp",
+  output = "raster" # return raster
+  )
+
+t2.2 <- Sys.time()
+
+t2.1-t2.2
+
+```
 
 # APPLICATIONS IN PLANT SCIENCES
 
-Having daily climatic values allows to extensively characterize important factors that condition plant performance such as the late-spring frosts or intensity, length of heat waves during the summer or days without precipitation. These information is not easily available, less still harmonized at large spatial scales. In the next example we show how to calculate the number of days with temperature below zero in spring per year and the mean minimum temperature reached (\@ref(tab:Table-2); see ["Calculating basic climatic indices with data from easyclimate"](Calculating basic climatic indices with data from easyclimate) vignette for other examples).
+Having daily climatic values allows to extensively characterize important factors that condition plant performance such as the late-spring frosts or intensity, length of heat waves during the summer or days without precipitation. These information is not easily available, less still harmonized at large spatial scales. In the next example we show how to calculate the number of days with temperature below zero in spring per year and the mean minimum temperature reached (\@ref(tab:Table-2); see ["Calculating basic climatic indices with data from easyclimate"](Calculating%20basic%20climatic%20indices%20with%20data%20from%20easyclimate) vignette for other examples).
 
 ```{r}
 
 spring.months <- c("03","04","05") # March to May
 
 springfrost <- daily %>% 
-  mutate(ID_coords = as.factor(ID_coords),
-         year = factor(year)) %>% 
+  mutate(year = factor(year)) %>% 
   filter(month %in% spring.months) %>% 
-  mutate(event = ifelse(Tmin < 0, 1, 0)) %>% # NAs will be 0 
-  group_by(ID_coords, year) %>% 
-  mutate(n_frost = sum(event)) %>% # No. of days with minimum temperature < 0 per year
+  mutate(event = ifelse(Tmin < 0, 1, 0)) %>% 
+  group_by(year) %>% 
+  mutate(n_frost = sum(event)) %>% 
   filter(event == 1) %>% 
   group_by(ID_coords, year, n_frost) %>% 
-  summarise(Tmin_frost_avg = mean(Tmin)/100) %>% # Mean minimum temperature of frost days
-  tidyr::complete(ID_coords, year, fill = list(n_frost = 0, Tmin_frost_avg = NA))
+  summarise(Tmin_frost_avg = mean(Tmin)) 
 
 ```
 
-Additionally, there are great efforts among the governments and the scientific communities for harmonizing data from European national forest inventories (REFs UE and FunDiv, others?). Those inventories repeated in many countries along decades are usually done with spatial resolutions of few kilometers (REF). The spatial and temporal framework fits with this of the climatic database extracted with *easyclimate*, making this tool spatially useful to answer a myriad of ecological questions related to climatic changes along Europe.
+Additionally, there are big efforts among the governments and the scientific communities for harmonizing data from European national forest inventories (<http://enfin.info>, <https://efi.int/knowledge/models/efiscen/inventory>, <http://project.fundiveurope.eu/>). Those inventories repeated in many countries along decades are usually done with spatial resolutions of few kilometers [@Mauri2017]. The spatial and temporal framework fits with this of the climatic database extracted with *easyclimate*, making this tool spatially useful to answer a myriad of ecological questions related to climatic changes along Europe.
 
 # ACKNOWLEDGEMENTS
 
@@ -206,15 +234,17 @@ On the shoulders of giants.
 
 Please, complete this sheet with your contribution: <https://docs.google.com/spreadsheets/d/1RfrZkTbl3aaQ0M_j6qH5y4dEmvi-U3xS68qHSkEcm3s/edit#gid=0>
 
+Then, the contribution statement will be wrote automatically.
+
 Use CREDIT taxonomy of author contributions: <https://rollercoaster.shinyapps.io/tenzing/>
 
 # DATA AVAILABILITY STATEMENT
 
-The climate datasets are publicly available at <ftp://palantir.boku.ac.at/Public/ClimateData/>. The easyclimate R package is available on CRAN (url) and GitHub (<https://github.com/VeruGHub/easyclimate>).
+The climate datasets are publicly available at <ftp://palantir.boku.ac.at/Public/ClimateData/>. The easyclimate R package is available on CRAN (**url**) and GitHub (<https://github.com/VeruGHub/easyclimate>).
 
 # REFERENCES
 
-```{r write_citations, cache=FALSE, include=FALSE}
+```{r write_citations, eval=FALSE, cache=FALSE, include=FALSE}
 write.bibtex(file = "knitcitations.bib")
 ```
 
@@ -226,16 +256,14 @@ write.bibtex(file = "knitcitations.bib")
 # Table 1
 
 ```{r Table-1, echo=FALSE}
-kable(prec, caption = "Daily precipitation (Prcp; mm × 100) for a given point extracted with easyclimate")
+kable(head(prec, n=10), caption = "Daily precipitation (Prcp; mm) for a given point extracted with easyclimate. Only ten first days are shown")
 ```
 
 \newpage
 
 # Figure 1
 
-```{r Fig-1, fig.cap="A boxplot."}
-
-ras_tmax <- ras_tmax/100
+```{r Fig-1, fig.cap="Maximum temperature for a given polygon in two different days of the year"}
 
 par(mfrow = c(1, 2))
 terra::plot(ras_tmax, 1, col = rev(heat.colors(20)), type = "continuous", 
