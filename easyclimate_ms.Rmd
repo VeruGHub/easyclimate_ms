@@ -26,7 +26,7 @@ output:
     
 bibliography: 
   - references.bib
-  - knitcitations.bib
+#  - knitcitations.bib
 csl: journal-of-vegetation-science.csl
 ---
 
@@ -52,9 +52,9 @@ Verónica Cruz-Alonso, Harvard University, Cambridge, MA, USA. Email: [veronica.
 
 VCA was supported by the Real Colegio Complutense Postdoctoral Fellowship 2020. FRS was supported by the VI Plan Propio de Investigación of Universidad de Sevilla (VI PPIT-US).
 
-# ABSTRACT
+# ABSTRACT (200 WORDS MAXIMUM)
 
-Write your abstract here (200 WORDS MAXIMUM)
+In recent decades there has been an increasing demand for harmonized climatic data at wide spatial scales and spanning long temporal periods in ecology. Here we present *easyclimate* a software package to download and process climatic data with R. The package facilitate the downloading and processing of high-resolution (1 km\^2) daily precipitation, minimum and maximum temperatures for Europe, and for a temporal span from 1950 to 2020. Using *easyclimate* and given a set of coordinates (points or polygons) and dates (days or years), the user can download the climatic information as a tidy table or a raster. In this package we implemented Cloud-Optimised Geotiffs so that the user can obtain daily climate data for thousands of sites/days within minutes, without having to download huge rasters. Daily climate data are required for many ecological research questions and applications, including the study of the effects of late-spring frosts, heat waves, or dry periods on plant performance. Because of that, *easyclimate* can be a useful tool with multiple applications in forestry, ecological and vegetation studies all over Europe. 
 
 *Keywords*: R package, climate, Europe, reproducibility, cloud-optimised geotiffs, (8-12 KEYWORDS)
 
@@ -70,6 +70,8 @@ opts_chunk$set(cache = TRUE, cache.path = "output/cache/")
 ## Plots
 opts_chunk$set(fig.path = "output/figures/", dpi = 300)
 ```
+
+<!---3000 words--->
 
 # INTRODUCTION
 
@@ -151,13 +153,13 @@ yearclimate <- daily %>%
 
 The results of the package *easyclimate* can be used directly or serve as input to calculate climatic indices with other packages, such as ClimInd [@climind] or SPEI [@spei].
 
-# *easyclimate* advantages
+# *easyclimate* ADVANTAGES
 
-The climatic data are available for download as GeoTIFF raster layers in a public FTP server (<ftp://palantir.boku.ac.at/Public/ClimateData/>). For querying climate data from large areas, it is recommended to download the raster layers and extract the data in our local computer or server (e.g. using the `extract` function from `terra` R package, @terra), so as not to saturate the FTP server. But for small to reasonable areas (e.g. less than 10000 sites or 10000 km\^2), the cloud-optimised geotiff technology implemented in *easyclimate* not only does the task much easier, but also can save significant time.
+The climatic data are available for download as GeoTIFF raster layers in a public FTP server (<ftp://palantir.boku.ac.at/Public/ClimateData/>). For querying climate data from large areas, it is recommended to download the raster layers and extract the data in our local computer or server (e.g. using the `extract` function from `terra` R package, @terra), so as not to saturate the FTP server. But for small to reasonable areas (e.g. less than 10000 sites or 10000 km\^2), the Cloud-Optimised Geotiff technology implemented in *easyclimate* not only does the task much easier, but also can save significant time.
 
 In the next example we download daily precipitation data for one year in an area of *ca*. 100 km\^2 using the traditional (i.e. raster downloading and local extraction) and the *easyclimate* method. While the local download and extraction took 9 minutes in a laptop with good internet connection, *easyclimate* only took 10 seconds to obtain the same data. Furthermore, with *easyclimate* we avoid downloading large rasters (several GB for each year). Thus, *easyclimate* becomes even more convenient if we are interested in climate data for different years.
 
-```{r eval=FALSE, include=FALSE}
+```{r echo=TRUE}
 
 library(terra)
 
@@ -177,12 +179,12 @@ system.time({
 
 ```
 
-```{r eval=FALSE, include=FALSE}
+```{r echo=TRUE}
 
 # Method 2: Obtain the same data using easyclimate
 
 system.time(
-  raster2 <- get_daily_climate(
+  prcp2010.data_2 <- get_daily_climate(
     coords_poly,
     period = 2010,
     climatic_var = "Prcp"
@@ -213,7 +215,7 @@ springfrost <- daily %>%
 
 ```
 
-By providing high-resolution (1-km) daily climate data with large temporal (currently 1950-2020) and spatial extent (longitude between -40.5 and 75.5, latitude between 25.25 and 75.5), *easyclimate* can be a useful tool with multiple aplications in forestry, ecological and vegetation studies all over Europe.
+By providing high-resolution (1-km) daily climate data with large temporal (currently 1950-2020) and spatial extent (longitude between -40.5 and 75.5, latitude between 25.25 and 75.5), *easyclimate* can be a useful tool with multiple applications in forestry, ecological and vegetation studies all over Europe. For example, the harmonization and use of European national forest inventories is being a priority for scientist and governments in the last years (<http://enfin.info>, <https://efi.int/knowledge/models/efiscen/inventory>, <http://project.fundiveurope.eu/>). Those inventories repeated in many countries along decades are usually done with spatial resolutions of few kilometers [@Mauri2017], what makes *easyclimate* an useful tool to get climatic information that can be used to understand forest dynamics.
 
 # ACKNOWLEDGEMENTS
 
