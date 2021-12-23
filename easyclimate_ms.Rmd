@@ -26,7 +26,6 @@ output:
     
 bibliography: 
   - references.bib
-#  - knitcitations.bib
 csl: journal-of-vegetation-science.csl
 ---
 
@@ -54,7 +53,7 @@ VCA was supported by the Real Colegio Complutense Postdoctoral Fellowship 2020. 
 
 # ABSTRACT (200 WORDS MAXIMUM)
 
-In recent decades there has been an increasing demand for harmonized climatic data at wide spatial scales and spanning long temporal periods in ecology. Here we present *easyclimate* a software package to download and process climatic data with R. The package facilitate the downloading and processing of high-resolution (1 km\^2) daily precipitation, minimum and maximum temperatures for Europe, and for a temporal span from 1950 to 2020. Using *easyclimate* and given a set of coordinates (points or polygons) and dates (days or years), the user can download the climatic information as a tidy table or a raster. In this package we implemented Cloud-Optimised Geotiffs so that the user can obtain daily climate data for thousands of sites/days within minutes, without having to download huge rasters. Daily climate data are required for many ecological research questions and applications, including the study of the effects of late-spring frosts, heat waves, or dry periods on plant performance. Because of that, *easyclimate* can be a useful tool with multiple applications in forestry, ecological and vegetation studies all over Europe. 
+In recent decades there has been an increasing demand for harmonized climatic data at wide spatial scales and spanning long temporal periods in ecology. Here we present *easyclimate* a software package to download and process climatic data with R. The package facilitate the downloading and processing of high-resolution (1 km\^2) daily precipitation, minimum and maximum temperatures for Europe, and for a temporal span from 1950 to 2020. Using *easyclimate* and given a set of coordinates (points or polygons) and dates (days or years), the user can download the climatic information as a tidy table or a raster. In this package we implemented Cloud-Optimised Geotiffs so that the user can obtain daily climate data for thousands of sites/days within minutes, without having to download huge rasters. Daily climate data are required for many ecological research questions and applications, including the study of the effects of late-spring frosts, heat waves, or dry periods on plant performance. Thus, *easyclimate* can be a useful tool with multiple applications in forestry, ecological and vegetation studies all over Europe. 
 
 *Keywords*: R package, climate, Europe, reproducibility, cloud-optimised geotiffs, (8-12 KEYWORDS)
 
