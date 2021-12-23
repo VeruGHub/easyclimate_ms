@@ -78,7 +78,7 @@ In recent decades there has been an increasing demand for harmonized climatic da
 
 # FUNCTIONALITY
 
-The main function in *easyclimate* is *get_daily_climate*, which extracts daily climate data for a given set of coordinates (points or polygons) and a given period of days or years (see examples in *get_daily_climate* [help page](https://verughub.github.io/easyclimate/reference/get_daily_climate.html), and the vignettes [Analysing the climate at spatial points for a given period](https://verughub.github.io/easyclimate/articles/points-df-mat-sf.html) and [Analysing the climate of an area for a given period](https://verughub.github.io/easyclimate/articles/polygons-raster.html)). The output can be either a data.frame (\@ref(tab:Table-1)) or a (multilayer) `SpatRaster` object (\@ref(fig:Fig-1) with daily climatic values for each point or polygon.
+The main function in *easyclimate* is *get_daily_climate*, which extracts daily climate data for a given set of coordinates (points or polygons) and a given period of days or years (see examples in *get_daily_climate* [help page](https://verughub.github.io/easyclimate/reference/get_daily_climate.html), and the vignettes [Analysing the climate at spatial points for a given period](https://verughub.github.io/easyclimate/articles/points-df-mat-sf.html) and [Analysing the climate of an area for a given period](https://verughub.github.io/easyclimate/articles/polygons-raster.html)). The output can be either a data.frame (Table \@ref(tab:Table-1)) or a (multilayer) `SpatRaster` object (Figure \@ref(fig:Fig-1) with daily climatic values for each point or polygon).
 
 For example, to obtain precipitation data for a single site between 1\^st and 3\^rd of January 2001:
 
@@ -138,7 +138,7 @@ daily <- prec %>%
 
 ```
 
-To calculate average temperatures and accumulated precipitation by site or time period (\@ref(tab:Table-2)) we can use `group_by` and `summarise` from `dplyr`, or `by` and `aggregate` from base R:
+To calculate average temperatures and accumulated precipitation by site or time period (Table \@ref(tab:Table-2)) we can use `group_by` and `summarise` from `dplyr`, or `by` and `aggregate` from base R:
 
 ```{r}
 
@@ -171,7 +171,7 @@ raster.url <- "ftp://palantir.boku.ac.at/Public/ClimateData/v3/AllDataRasters/pr
 options(timeout = max(10000, getOption("timeout")))
 
 system.time({
-  download.file(raster.url, destfile = "prcp2010.tif")
+  download.file(raster.url, destfile = "prcp2010.tif", mode = "wb")
   prcp2010.ras <- terra::rast("prcp2010.tif") 
   prcp2010.data <- terra::extract(prcp2010.ras, coords_poly, xy = TRUE)
 })
@@ -196,7 +196,7 @@ system.time(
 
 Daily climate data are required for many ecological research questions and applications, including the study of the effects of late-spring frosts, heat waves, or dry periods on plant performance. However, accessing and processing such daily climate data is often cumbersome. Even more if harmonized data are required at large spatial scales.
 
-In the next example we show how we can easily calculate the number of spring days with freezing temperatures (below zero), and the mean minimum temperature reached over several years (\@ref(tab:Table-2); see ["Calculating basic climatic indices with data from easyclimate"](Calculating%20basic%20climatic%20indices%20with%20data%20from%20easyclimate) vignette for other examples).
+In the next example we show how we can easily calculate the number of spring days with freezing temperatures (below zero), and the mean minimum temperature reached over several years (Table \@ref(tab:Table-3); see ["Calculating basic climatic indices with data from easyclimate"](Calculating%20basic%20climatic%20indices%20with%20data%20from%20easyclimate) vignette for other examples).
 
 ```{r}
 
