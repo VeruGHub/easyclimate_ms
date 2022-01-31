@@ -60,7 +60,7 @@ VCA was supported by the Real Colegio Complutense Postdoctoral Fellowship 2020. 
 
 In recent decades there has been an increasing demand by ecologists for harmonized climatic data at large spatial scales and spanning long periods. Here we present *easyclimate*, a software package to obtain daily climatic data at high resolution (0.0083º, \~1 km) with R. The package facilitates the downloading and processing of precipitation, minimum and maximum temperatures for Europe from 1950 to 2020. Using *easyclimate* and given a set of coordinates (points or polygons) and dates (days or years), the user can download the climatic information as a tidy table or a raster object. In this package we implemented Cloud-Optimized GeoTIFFs which provide access to daily climate data for thousands of sites/days within minutes, without having to download huge rasters. Daily climate data are not available in many of the current climate databases and are essential for many ecological research questions and applications, including the study of the effects of extreme climatic events related to late-spring frosts, heat waves, or dry periods on plant performance. *easyclimate* taps the potential for climatic data and enables multiple applications in forestry, ecological and vegetation studies across Europe.
 
-*Keywords*: R package, climate, Europe, extreme climatic events, reproducibility, cloud-optimized geoTIFF, daily data, temperature, precipitation 
+*Keywords*: R package, climate, Europe, extreme climatic events, reproducibility, cloud-optimized geoTIFF, daily data, temperature, precipitation
 
 ```{r setup, include=FALSE, cache=FALSE, message = FALSE}
 library("knitr")
@@ -79,11 +79,11 @@ opts_chunk$set(fig.path = "output/figures/", dpi = 300)
 
 # INTRODUCTION
 
-In recent decades there has been an increasing demand for harmonized daily gridded climatic data at wide spatial scales and spanning long temporal periods. Such data is invaluable for vegetation, wildlife, climatic and hydrological studies and Earth system modelling [@Hasenauer2003; @Thornton2021]. Examples are the assesment of climate effects and climate change impacts on European forests [@Ruiz-Benito2020; @Hlasny2017; @Moreno2018; @Neumann2017; @Archambeau2020; @George2021], the initialization of large scale carbon cycle models [@Pietsch2006], the spatial-temporal variability of rainfall erosivity [@MicicPonjiger2021] or the creation of a European net primary production dataset [@Neumann2016].
+In recent decades there has been an increasing demand for harmonized daily gridded climatic data at wide spatial scales and spanning long temporal periods. Such data is invaluable for vegetation, wildlife, climatic and hydrological studies and Earth system modelling [@Hasenauer2003; @Thornton2021]. Examples are the assesment of climate effects and climate change impacts on European forests [@Ruiz-Benito2020; @Hlasny2017; @Moreno2018; @Neumann2017; @Archambeau2020; @George2021], the initialization of large-scale carbon cycle models [@Pietsch2006], the spatial-temporal variability of rainfall erosivity [@MicicPonjiger2021] or the creation of a European net primary production dataset [@Neumann2016].
 
 Here we present *easyclimate* [@easyclimatepkg], a software package (available from the Comprehensive R Archive Network, CRAN: [\<https://cran.r-project.org/package=easyclimate\>](https://cran.r-project.org/package=easyclimate)) to download and process climate data with R [@R_Core_Team_2021]. *easyclimate* has been developed to facilitate the use of high-resolution (0.0083º × 0.0083º, \~1 km^2^) daily climate for Europe (longitude: -24.5º - 45.25º; latitude: 25.25º - 75.5º; Figure 1). Daily precipitation and minimum and maximum temperature data are currently available from 1950 to 2020 and hosted at [University of Natural Resources and Life Sciences, Vienna, Austria](https://boku.ac.at/en/wabo/waldbau/wir-ueber-uns/daten).
 
-The climatic dataset was originally produced by Moreno and Hasenauer [-@moreno2016spatial]. For the production, the coarse daily [E-Obs](https://surfobs.climate.copernicus.eu/dataaccess/access_eobs.php#datafiles) climate data [@cornes_ensemble_2018] was downscaled by using the finer-resolution [WorldClim](https://worldclim.org/data/worldclim21.html#) data [@fick_worldclim_2017]. WorldClim provides global long-term monthly averages of several climatic variables at 0.0083° resolution (approximately 1 km). E-Obs provides gridded daily climate data for Europe at 0.25° resolution (approximately 30 km) by interpolating around 3700 weather stations for temperature and around 9000 stations for precipitation. Downscaling was performed by applying a spatial delta method with a monotone cubic interpolation of anomalies [@Mosier2014; @moreno2016spatial]. Since its original release, the downscaled climate data has been further developed and updated by Rammer, Pucher and Neumann, and two further releases (v2 and v3) have been published (see the main additions in the releases in the associated documentation: [v2](https://figshare.com/articles/online_resource/Description_Evaluation_and_Validation_of_Downscaled_Daily_Climate_Data_Version_2/19063892) and [v3](https://figshare.com/articles/online_resource/Description_and_Evaluation_of_Downscaled_Daily_Climate_Data_Version_3/19070162)). The *easyclimate* R package enables easy and fast access to the latest version of the downscaled climate data (v3). We achieved this by implementing Cloud-Optimized Geotiffs (<https://www.cogeo.org>) which provide access to daily climate data for thousands of sites and days within minutes, without having to download huge rasters.
+The climatic dataset was originally produced by Moreno and Hasenauer [-@moreno2016spatial]. For the production, the coarse daily [E-Obs](https://surfobs.climate.copernicus.eu/dataaccess/access_eobs.php#datafiles) climate data [@cornes_ensemble_2018] was downscaled by using the finer-resolution [WorldClim](https://worldclim.org/data/worldclim21.html#) data [@fick_worldclim_2017]. WorldClim provides global long-term monthly averages of several climatic variables at 0.0083° resolution (approximately 1 km). E-Obs provides gridded daily climate data for Europe at 0.25° resolution (approximately 30 km) by interpolating around 3700 weather stations for temperature and around 9000 stations for precipitation. Downscaling was performed by applying a spatial delta method with a monotone cubic interpolation of anomalies [@Mosier2014; @moreno2016spatial]. Since its original release, the downscaled climate data has been further developed and updated, and two further releases (v2 and v3) have been published (see the main additions in the releases in the associated documentation in @Rammer2022 and \@Pucher2022). The *easyclimate* R package enables easy and fast access to the latest version of the downscaled climate data (v3). We achieved this by implementing Cloud-Optimized GeoTIFFs (<https://www.cogeo.org>) which provide access to daily climate data for thousands of sites and days within minutes, without having to download huge rasters.
 
 # FUNCTIONALITY
 
@@ -92,13 +92,13 @@ The main function in *easyclimate* is *get_daily_climate*, which extracts daily 
 For example, to obtain precipitation data for a single site between 1^st^ and 3^rd^ of January 2001 we can run the next script:
 
 ```{r example df}
-# library(easyclimate)
-# 
-# coords <- data.frame(lon = -5.36, lat = 37.40)
-# 
-# precip <- get_daily_climate(coords, 
-#                           period = "2001-01-01:2001-01-03", 
-#                           climatic_var = "Prcp")
+library(easyclimate)
+
+coords <- data.frame(lon = -5.36, lat = 37.40)
+
+precip <- get_daily_climate(coords,
+                          period = "2001-01-01:2001-01-03",
+                          climatic_var = "Prcp")
 ```
 
 To obtain a multilayer raster with values of maximum temperature for two days (1^st^ January and 7^th^ August 2012) for a region delimited by a polygon, we can do:
@@ -106,14 +106,14 @@ To obtain a multilayer raster with values of maximum temperature for two days (1
 ```{r example raster}
 library(terra)
 
-# coords.poly <- vect("POLYGON ((-4.5 41, -4.5 40.5, -5 40.5, -5 41))")
-# 
-# ras_tmax <- get_daily_climate(
-#   coords.poly,
-#   period = c("2012-01-01", "2012-08-07"),
-#   climatic_var = "Tmax",
-#   output = "raster" 
-#   )
+coords.poly <- vect("POLYGON ((-5.31 40.24, -5.21 40.24, -5.21 40.14, -5.31 40.14))")
+
+ras_tmax <- get_daily_climate(
+  coords.poly,
+  period = c("2012-01-01", "2012-08-07"),
+  climatic_var = "Tmax",
+  output = "raster"
+  )
 
 ```
 
@@ -121,16 +121,16 @@ By design, *easyclimate* yields tidy datasets [@wickham_tidy_2014] that facilita
 
 ```{r tidy dataset}
 
-# library(dplyr)
+library(dplyr)
 
-# coords <- data.frame(lon = -4.88, lat = 40.82)
+coords <- data.frame(lon = -4.88, lat = 40.82)
 
-# daily_output <- get_daily_climate(coords,
-#                                   period = 2010:2015,
-#                                   climatic_var = c("Prcp", "Tmin", "Tmax")) 
+daily_output <- get_daily_climate(coords,
+                                  period = 2010:2015,
+                                  climatic_var = c("Prcp", "Tmin", "Tmax"))
 
-# daily <- daily_output %>% 
-#   mutate(Tmean = (Tmin + Tmax) / 2) 
+daily <- daily_output %>% 
+  mutate(Tmean = (Tmin + Tmax) / 2)
 
 ```
 
@@ -138,15 +138,14 @@ To calculate average temperatures and aggregated precipitation by site or time p
 
 ```{r}
 
-# yearclimate <- daily %>% 
-#   mutate(date = as.Date(date),
-#          month = format(date, format = "%m"),
-#          year = as.factor(format(date, format = "%Y"))) %>% 
-#   group_by(year) %>% 
-#   summarise(Tmin.year = mean(Tmin),
-#             Tmean.year = mean(Tmean),
-#             Tmax.year = mean(Tmax),
-#             Prcp.year = sum(Prcp))
+yearclimate <- daily %>%
+  mutate(date = as.Date(date),
+         year = as.factor(format(date, format = "%Y"))) %>%
+  group_by(year) %>%
+  summarise(Tmin.year = mean(Tmin),
+            Tmean.year = mean(Tmean),
+            Tmax.year = mean(Tmax),
+            Prcp.year = sum(Prcp))
 
 ```
 
@@ -164,17 +163,17 @@ library(terra)
 
 # Method 1: Raster downloading and local data extraction
 
-# coords.poly <- vect("POLYGON ((-5.039 40.913, -4.919 40.913, -4.918 40.825, -5.039 40.825))")
-# 
-# raster.url <- "ftp://palantir.boku.ac.at/Public/ClimateData/v3/AllDataRasters/prec/DownscaledPrcp2010.tif"
-# 
-# options(timeout = max(10000, getOption("timeout")))
-# 
-# system.time({
-#   download.file(raster.url, destfile = "prcp2010.tif", mode = "wb")
-#   prcp2010.ras <- terra::rast("prcp2010.tif") 
-#   prcp2010.data <- terra::extract(prcp2010.ras, coords.poly, xy = TRUE)
-# })
+coords.poly <- vect("POLYGON ((-5.039 40.913, -4.919 40.913, -4.918 40.825, -5.039 40.825))")
+ 
+raster.url <- "ftp://palantir.boku.ac.at/Public/ClimateData/v3/AllDataRasters/prec/DownscaledPrcp2010.tif"
+ 
+options(timeout = max(10000, getOption("timeout")))
+ 
+system.time({
+   download.file(raster.url, destfile = "prcp2010.tif", mode = "wb")
+   prcp2010.ras <- terra::rast("prcp2010.tif") 
+   prcp2010.data <- terra::extract(prcp2010.ras, coords.poly, xy = TRUE)
+ })
 
 ```
 
@@ -182,38 +181,40 @@ library(terra)
 
 # Method 2: Obtain the same data using easyclimate
 
-# system.time(
-#   prcp2010.data_2 <- get_daily_climate(
-#     coords.poly,
-#     period = 2010,
-#     climatic_var = "Prcp"
-#   )
-# )
+system.time(
+   prcp2010.data_2 <- get_daily_climate(
+     coords.poly,
+     period = 2010,
+     climatic_var = "Prcp"
+   )
+ )
 
 ```
 
 # APPLICATIONS IN PLANT SCIENCES
 
-Plant distribution as well as plant growth, phenology, respiration and mortality are strongly driven by weather conditions (e.g. @Kunstler2021). Daily weather data, and any aggregation to average monthly or annual numbers, may hide important climate effects on plants specifically if we expect changing environmental conditions. Daily climate data are of interest for many ecological research questions and applications, including the study of the effects of late-spring frosts [@Zohner2020], heat waves or dry periods on plant performance [@CruzAlonso2020]. However, accessing and processing such daily climate data is often cumbersome, even more if harmonized data are required at large spatial scales, and instead researchers use monthly or annual climate data.
+Plant distribution as well as plant growth, phenology, respiration and mortality are strongly driven by weather conditions [e.g. @Kunstler2021]. Any aggregation of climate data to average monthly or annual numbers may hide important climate effects on plants specifically if we expect changing environmental conditions. In this sense, daily climate data are of interest for many ecological research questions and applications, including the study of the effects of late-spring frosts [@Zohner2020], heat waves or dry periods on plant performance [@CruzAlonso2020]. However, accessing and processing such daily climate data is often cumbersome, even more if harmonized data are required at large spatial scales, and instead researchers use monthly or annual climate data.
 
 In the next example we show how we can easily calculate the number of spring days with freezing temperatures (below zero), and the mean minimum temperature reached over several years (Table \@ref(tab:Table-3); see ["Calculating basic climatic indices with data from easyclimate"](Calculating%20basic%20climatic%20indices%20with%20data%20from%20easyclimate) vignette for other examples).
 
 ```{r}
 
-# spring.months <- c("03","04","05") # March to May
-# 
-# springfrost_event <- daily %>% 
-#   filter(month %in% spring.months) %>% 
-#   mutate(event = ifelse(Tmin < 0, 1, 0)) 
-# 
-# springfrost_peryear <- springfrost_event %>% 
-#   group_by(year) %>% 
-#   mutate(n.frost = sum(event)) 
-# 
-# springfrost <- springfrost_peryear %>% 
-#   filter(event == 1) %>% 
-#   group_by(ID_coords, year, n.frost) %>% 
-#   summarise(Tmin.frost.avg = mean(Tmin)) 
+spring.months <- c("03","04","05") # March to May
+ 
+springfrost_event <- daily %>% 
+  mutate(date = as.Date(date),
+         month = format(date, format = "%m")),
+   filter(month %in% spring.months) %>% 
+   mutate(event = ifelse(Tmin < 0, 1, 0)) 
+ 
+springfrost_peryear <- springfrost_event %>% 
+   group_by(year) %>% 
+   mutate(n.frost = sum(event)) 
+ 
+springfrost <- springfrost_peryear %>% 
+   filter(event == 1) %>% 
+   group_by(ID_coords, year, n.frost) %>% 
+   summarise(Tmin.frost.avg = mean(Tmin)) 
 
 ```
 
@@ -253,7 +254,7 @@ The climate datasets are publicly available at <ftp://palantir.boku.ac.at/Public
 
 # Figure 1
 
-![](images/Figure1_alternative.jpg)
+![](images/DSv3_Tmax_19850501.jpg)
 
 *Figure 1: Example raster of maximum temperature (°C) to show the spatial coverage of the daily downscaled climate data.*
 
@@ -271,13 +272,13 @@ The climate datasets are publicly available at <ftp://palantir.boku.ac.at/Public
 
 ```{r Fig-2, echo=FALSE, fig.cap="A multilayer raster of maximum temperature values for a given polygon in two different days of the year."}
 
-# par(mfrow = c(1, 2))
-# terra::plot(ras_tmax, 1, col = rev(heat.colors(20)), type = "continuous", 
-#             smooth = TRUE, range = c(10, 35), legend = FALSE, 
-#             mar=c(4, 2, 4, 2), main = "January 1 2012")
-# terra::plot(ras_tmax, 2, col = rev(heat.colors(20)), type = "continuous", 
-#             smooth = TRUE, range = c(10, 35), 
-#             mar = c(4, 1, 4, 3), main = "August 7 2012")
+par(mfrow = c(1, 2))
+terra::plot(ras_tmax, 1, col = rev(heat.colors(20)), type = "continuous", 
+             smooth = TRUE, range = c(10, 35), legend = FALSE, 
+             mar=c(4, 2, 4, 2), main = "January 1 2012")
+terra::plot(ras_tmax, 2, col = rev(heat.colors(20)), type = "continuous", 
+             smooth = TRUE, range = c(10, 35), 
+             mar = c(4, 1, 4, 3), main = "August 7 2012")
 
 ```
 
@@ -286,7 +287,7 @@ The climate datasets are publicly available at <ftp://palantir.boku.ac.at/Public
 # Table 2
 
 ```{r Table-2, echo=FALSE}
-# kable(yearclimate, digits = 1, caption = "Yearly climatic values for a given site extracted with easyclimate. Tmin.year = Minimum temperature (ºC), Tmean.year = Mean temperature (ºC), Tmax.year = Maximum temperature (ºC), Prcp.year = Precipitation (mm)")
+kable(yearclimate, digits = 1, caption = "Yearly climatic values for a given site extracted with easyclimate. Tmin.year = Minimum temperature (ºC), Tmean.year = Mean temperature (ºC), Tmax.year = Maximum temperature (ºC), Prcp.year = Precipitation (mm)")
 ```
 
 \newpage
@@ -294,5 +295,5 @@ The climate datasets are publicly available at <ftp://palantir.boku.ac.at/Public
 # Table 3
 
 ```{r Table-3, echo=FALSE}
-# kable(springfrost[, -1], caption = "No. of days with temperature below zero in spring (n.frost) and mean minimum temperature reached (Tmin.frost.avg; ºC) extracted with easyclimate")
+kable(springfrost[, -1], caption = "No. of days with temperature below zero in spring (n.frost) and mean minimum temperature reached (Tmin.frost.avg; ºC) extracted with easyclimate")
 ```
