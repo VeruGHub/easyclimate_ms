@@ -1,8 +1,6 @@
 ---
 title: "The easyclimate R package: easy access to high-resolution daily climate data for Europe"
-
 # subtitle: "Short title: easyclimate R package"
-
 author: "Verónica Cruz-Alonso (ORCID: 0000-0002-0642-036X) ^1,2^ §, 
     Christoph Pucher (ORCID: 0000-0002-9269-1907) ^3^ §, 
     Sophia Ratcliffe (ORCID: 0000-0001-9284-7900) ^4^,
@@ -11,11 +9,10 @@ author: "Verónica Cruz-Alonso (ORCID: 0000-0002-0642-036X) ^1,2^ §,
     Mathias Neumann (ORCID: 0000-0003-2472-943X) ^3^,
     Hubert Hasenauer (ORCID: 0000-0003-3469-4031) ^3^,
     Francisco Rodríguez-Sánchez (ORCID: 0000-0002-7981-1599) ^6,7^"
-
 # date: `r Sys.Date()`
-
 output:
   bookdown::word_document2:
+    
     fig_caption: yes
     fig_width: 7
     fig_height: 7
@@ -24,10 +21,11 @@ output:
     number_sections: no
     toc: no
     reference_docx: Word_template.docx
-    
 bibliography: 
   - references.bib
 csl: journal-of-vegetation-science.csl
+editor_options: 
+  chunk_output_type: console
 ---
 
 ^1^ Department of Landscape Architecture, Graduate School of Design, Harvard University, USA
@@ -81,13 +79,13 @@ opts_chunk$set(fig.path = "output/figures/", dpi = 300)
 
 In recent decades there has been an increasing demand for harmonized daily gridded climatic data at wide spatial scales and spanning long temporal periods. Such data is invaluable for vegetation, wildlife, climatic and hydrological studies and Earth system modelling [@Hasenauer2003; @Thornton2021]. Examples are the assesment of climate effects and climate change impacts on European forests [@Ruiz-Benito2020; @Hlasny2017; @Moreno2018; @Neumann2017; @Archambeau2020; @George2021], the initialization of large-scale carbon cycle models [@Pietsch2006], the spatial-temporal variability of rainfall erosivity [@MicicPonjiger2021] or the creation of a European net primary production dataset [@Neumann2016].
 
-Here we present *easyclimate* [@easyclimatepkg], a software package (available from the Comprehensive R Archive Network, CRAN: [\<https://cran.r-project.org/package=easyclimate\>](https://cran.r-project.org/package=easyclimate)) to download and process climate data with R [@R_Core_Team_2021]. *easyclimate* has been developed to facilitate the use of high-resolution (0.0083º × 0.0083º, \~1 km^2^) daily climate for Europe (longitude: -24.5º - 45.25º; latitude: 25.25º - 75.5º; Figure 1). Daily precipitation and minimum and maximum temperature data are currently available from 1950 to 2020 and hosted at [University of Natural Resources and Life Sciences, Vienna, Austria](https://boku.ac.at/en/wabo/waldbau/wir-ueber-uns/daten).
+Here we present *easyclimate* [@easyclimatepkg], a software package (available from GitHub: <https://github.com/VeruGHub/easyclimate>) to download and process climate data with R [@R_Core_Team_2021]. *easyclimate* has been developed to facilitate the use of high-resolution (0.0083º × 0.0083º, \~1 km^2^) daily climate for Europe (longitude: -24.5º - 45.25º; latitude: 25.25º - 75.5º; Figure 1). Daily precipitation and minimum and maximum temperature data are currently available from 1950 to 2020 and hosted at [University of Natural Resources and Life Sciences, Vienna, Austria](https://boku.ac.at/en/wabo/waldbau/wir-ueber-uns/daten).
 
 The climatic dataset was originally produced by Moreno and Hasenauer [-@moreno2016spatial]. For the production, the coarse daily [E-Obs](https://surfobs.climate.copernicus.eu/dataaccess/access_eobs.php#datafiles) climate data [@cornes_ensemble_2018] was downscaled by using the finer-resolution [WorldClim](https://worldclim.org/data/worldclim21.html#) data [@fick_worldclim_2017]. WorldClim provides global long-term monthly averages of several climatic variables at 0.0083° resolution (approximately 1 km). E-Obs provides gridded daily climate data for Europe at 0.25° resolution (approximately 30 km) by interpolating around 3700 weather stations for temperature and around 9000 stations for precipitation. Downscaling was performed by applying a spatial delta method with a monotone cubic interpolation of anomalies [@Mosier2014; @moreno2016spatial]. Since its original release, the downscaled climate data has been further developed and updated, and two further releases (v2 and v3) have been published (see the main additions in the releases in the associated documentation in @Rammer2022 and @Pucher2022). The *easyclimate* R package enables easy and fast access to the latest version of the downscaled climate data (v3). We achieved this by implementing Cloud-Optimized GeoTIFFs (<https://www.cogeo.org>) which provide access to daily climate data for thousands of sites and days within minutes, without having to download huge rasters.
 
 # FUNCTIONALITY
 
-The main function in *easyclimate* is *get_daily_climate*, which extracts daily climate data for a given set of coordinates (points or polygons) and a given period of days or years (see examples in *get_daily_climate* [help page](https://verughub.github.io/easyclimate/reference/get_daily_climate.html), and the vignettes [Analysing the climate at spatial points for a given period](https://verughub.github.io/easyclimate/articles/points-df-mat-sf.html) and [Analysing the climate of an area for a given period](https://verughub.github.io/easyclimate/articles/polygons-raster.html)). The output can be either a `data.frame` (Table \@ref(tab:Table-1)) or a (multilayer) `SpatRaster` object (see Figure \@ref(fig:Fig-2)) with daily climatic values for each point or polygon.
+The main function in *easyclimate* is *get_daily_climate*, which extracts daily climate data for a given set of coordinates (points or polygons) and a given period of days or years (see examples in *get_daily_climate* [help page](https://verughub.github.io/easyclimate/reference/get_daily_climate.html), and the vignettes [Analysing the climate at spatial points for a given period](https://verughub.github.io/easyclimate/articles/points-df-mat-sf.html) and [Analysing the climate of an area for a given period](https://verughub.github.io/easyclimate/articles/polygons-raster.html)). The output can be either a `data.frame` (Table \@ref(tab:Table-1)) or a (multilayer) `SpatRaster` object (see Figure 2) with daily climatic values for each point or polygon.
 
 For example, to obtain precipitation data for a single site between 1^st^ and 3^rd^ of January 2001 we can run the next script:
 
@@ -155,7 +153,7 @@ The results of the package *easyclimate* can be used directly or serve as input 
 
 Although the entire downscaled climatic data is available for download as GeoTIFF raster layers in a public FTP server (<ftp://palantir.boku.ac.at/Public/ClimateData/>), for small to moderately-sized areas (e.g. less than 10000 sites or 10000 km^2^), the Cloud-Optimised GeoTIFF technology implemented in *easyclimate* allows to efficiently extract the data and can save significant time. Furthermore, with *easyclimate* we avoid downloading large rasters (several GB for each year) requiring storage space on local or remote servers, energy and resources [@Hischier2015; @Hilty2015]. In this sense, *easyclimate* becomes even more efficient if we are interested in climate data for multiple years and a small number of sites. For querying climate data from larger areas, it is recommended to download the raster layers and extract the data to local storage (e.g. using the `extract` function from `terra` R package, @terra), to avoid overloading the FTP server.
 
-As a test comparing the two methodologies (i.e. raster downloading and local extraction and the *easyclimate* method), we downloaded daily precipitation data for one year in an area of *ca*. 100 km^2^. While the local download and extraction took 9-10 minutes in a laptop with good internet connection and stored \~5960 Mb, *easyclimate* took \~18 seconds to obtain the same data storing only the final dataset (2.3 Mb).
+As a test comparing the two methodologies (i.e. raster downloading and local extraction and the *easyclimate* method), we downloaded daily precipitation data for one year in an area of *ca*. 100 km^2^. While the local download and extraction took 9-10 minutes in a laptop with good internet connection and stored \~5960 Mb, *easyclimate* took \~17 seconds to obtain the same data storing only the final dataset (2.3 Mb).
 
 ```{r echo=TRUE}
 
@@ -244,7 +242,7 @@ We acknowledge the support by the University of Natural Resources and Life Scien
 
 # DATA AVAILABILITY STATEMENT
 
-The climate datasets are publicly available at <ftp://palantir.boku.ac.at/Public/ClimateData/>. The easyclimate R package is available on CRAN (**url**) and GitHub (<https://github.com/VeruGHub/easyclimate>).
+The climate datasets are publicly available at <ftp://palantir.boku.ac.at/Public/ClimateData/>. The easyclimate R package is available on GitHub (<https://github.com/VeruGHub/easyclimate>).
 
 # REFERENCES
 
@@ -271,37 +269,8 @@ kable(precip[, -1], caption = "Daily precipitation (Prcp; mm) for a given site o
 
 # Figure 2
 
-```{r Fig-2, echo=FALSE, fig.width = 7, fig.height = 4.8, fig.cap="A multilayer raster of maximum temperature values for a given polygon in two different days of the year."}
-
-elev.data <- geodata::elevation_3s(lon = -5.27, lat = 40.22, path = getwd())
-elev <- crop(elev.data, ras_tmax)
-
-#### Calculate hillshade ####
-slopes <- terrain(elev, "slope", unit = "radians")
-aspect <- terrain(elev, "aspect", unit = "radians")
-hs <- shade(slopes, aspect)
-
-#### Map ####
-
-par(mfrow = c(1, 2))
-
-## Plot hillshading as basemap
-plot(hs, col = gray(0:100 / 100), legend = FALSE, axes = FALSE, 
-     main = "January 1 2012", mar=c(4, 2, 4, 2), yaxp = c(40.15, 40.30, 3))
-# overlay with Tmax
-plot(ras_tmax[[1]], alpha = 0.8, axes = TRUE, add = TRUE,
-     col = rev(heat.colors(20)), type = "continuous", 
-     smooth = TRUE, range = c(3, 35), legend = FALSE)
-
-
-plot(hs, col = gray(0:100 / 100), legend = FALSE, axes = FALSE, 
-     main = "August 7 2012", mar=c(4, 1, 4, 3), yaxp = c(40.15, 40.30, 3))
-# overlay with Tmax
-plot(ras_tmax[[2]], alpha = 0.8, axes = TRUE, add = TRUE,
-     col = rev(heat.colors(20)), type = "continuous", 
-     smooth = TRUE, range = c(3, 35), legend = TRUE)
-
-```
+![](images/maptemp.jpg)
+*Figure 2: A multilayer raster of maximum temperature values for a given polygon in two different days of the year.*
 
 \newpage
 
