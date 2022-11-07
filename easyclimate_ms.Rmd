@@ -67,15 +67,41 @@ opts_chunk$set(cache = TRUE, cache.path = "output/cache/")
 opts_chunk$set(fig.path = "output/figures/", dpi = 300)
 ```
 
-# DATA AVAILABILITY STATEMENT
+# **HIGHLIGHTS**
 
-The climate datasets are publicly available at <ftp://palantir.boku.ac.at/Public/ClimateData/>. The easyclimate R package is available on GitHub (<https://github.com/VeruGHub/easyclimate>).
+1.  *easyclimate* is an R package for easy access to high-resolution (0.0083°, \~1 km) daily precipitation, minimum and maximum temperature data for Europe from 1950 to 2020.
+
+2.  It efficiently extract data for small to moderately-sized areas by providing coordinates (points or polygons) and a time period (days or years).
+
+3.  Data are provided as tidy datasets which can be used to calculate many varied climatic indices.
+
+# SOFTWARE AND DATA AVAILABILITY
+
+-   Software name: easyclimate.
+
+-   Developer: Verónica Cruz-Alonso, Francisco Rodriguez-Sanchez, Christoph Pucher, Paloma Ruiz-Benito, Julen Astigarraga, Mathias Neumann, Sophia Ratcliffe.
+
+-   First year available: 2021.
+
+-   Software requirements: R statistical environment and language (version \>= 3.5.0).
+
+-   Program language: R.
+
+-   Cost: free.
+
+-   License: GPL 3.0.
+
+-   Software availability: <https://github.com/VeruGHub/easyclimate>
+
+-   Program size: 12 KB.
+
+-   Data availability: climate data accessed via the easyclimate package is publicly available at <ftp://palantir.boku.ac.at/Public/ClimateData/>
 
 # 1. INTRODUCTION
 
 In recent decades there has been an increasing demand for harmonized daily gridded climatic data at wide spatial scales and spanning long temporal periods. Such data is invaluable for vegetation, wildlife, climatic and hydrological studies and Earth system modelling [@Hasenauer2003; @Thornton2021]. Examples are the assessment of climate effects and climate change impacts on European forests [@Ruiz-Benito2020; @Hlasny2017; @Moreno2018; @Neumann2017; @Archambeau2020; @George2021], the initialization of large-scale carbon cycle models [@Pietsch2006], the spatial-temporal variability of rainfall erosivity [@MicicPonjiger2021] or the creation of a European net primary production dataset [@Neumann2016].
 
-Plant distribution as well as plant growth, phenology, respiration and mortality are strongly driven by weather conditions [e.g. @Kunstler2021]. Any aggregation of climate data to average monthly or annual numbers may hide important climate effects on plants specifically if we expect changing environmental conditions. In this sense, daily climate data are of interest for many ecological research questions and applications, including the study of the effects of late-spring frosts [@Zohner2020], heat waves or dry periods on plant performance [@CruzAlonso2020]. However, accessing and processing such daily climate data is often cumbersome, even more if harmonized data are required at large spatial scales, and instead researchers use monthly or annually averaged climate data.
+Plant distribution as well as plant growth, phenology, respiration and mortality are strongly driven by weather conditions [e.g. @Kunstler2021]. Any aggregation of climate data to average monthly or annual numbers may hide important climate effects on plants specifically if we expect changing environmental conditions. In this sense, daily climate data are of interest for many ecological research questions and applications, including the study of the effects of late-spring frosts [@Zohner2020], heat waves or dry periods on plant performance [@CruzAlonso2020]. However, accessing and processing such daily climate data is often cumbersome [@cáceres2018], even more if harmonized data are required at large spatial scales, and instead researchers use monthly or annually averaged climate data.
 
 Here we present *easyclimate* [@easyclimatepkg], a software package (available from GitHub: <https://github.com/VeruGHub/easyclimate>) to download and process climate data with R [@R_core_team_2022]. *easyclimate* has been developed to facilitate the use of high-resolution (0.0083º × 0.0083º, \~1 km^2^) daily climate for Europe (longitude: -24.5º - 45.25º; latitude: 25.25º - 75.5º; Figure 1). Daily precipitation and minimum and maximum temperature data are currently available from 1950 to 2020 and hosted at [University of Natural Resources and Life Sciences, Vienna, Austria](https://boku.ac.at/en/wabo/waldbau/wir-ueber-uns/daten).
 
