@@ -1,0 +1,108 @@
+---
+title: ""
+format: docx
+editor: visual
+---
+
+# **Point by point responses to reviewers**
+
+## **Reviewer #1**
+
+This manuscript outlines the development of a new API that will allow users to dynamically work with downscaled climate data that currently sits on an FTP site. This work is very valuable to the scientific modeling community as it provides a more efficient way to work with
+large amounts of temporally and spatially explicit data.
+
+**R1:** \
+
+My overall recommendation is to accept with very minor revisions. The only real criticism I have is that this paper could utilize more computer science and software developer language. For example, this is clearly an API, but it does not use that term or any typical language to explain its syntax. I would recommend that because this is a software paper, that the authors utilize a little more software development language.
+
+**R2:**
+
+## 
+**Reviewer #2**
+
+The work presented by Curz-Alonso et al. is of high quality and usefulness. The authors provide easy access to high resolution climate data on a European scale. The basic function of easyclim is to download a large dataset (1km, daily) in a simple way for researchers who are relatively new to the field of pure climate data processing. The article is clear and concise, with several intuitive examples that allow the reader to understand the scope of the package.\
+In this respect, my comments and suggestions are minor, and are detailed below:
+
+**R3:** \
+
+Introduction\
+
+- L75: Replace "(longitude: -24.5º - 45.25º; latitude: 25.25º - 75.5º;" by "(24.5ºW, 45.25ºE, 25.25ºN,
+75.5ºN".
+
+**R4:** Done (LXX).\
+
+- L82: The main purpose of the library is to download downscaled climate data. Perhaps some more detail could be given on how the downscaling works, with a schematic figure of this procedure. This will provide more complete information about the data the user is downloading.
+
+**R5:** *Christoph, could you be in charge on this one and provide the detailed description and the figure?*\
+
+Why the new versions of the downscaling method do not use EOBS 0.1º?
+
+**R6:** *Christoph*\
+
+Functionality\
+
+- L100: Indicate that spatRaster is a Terra class.
+
+**R7:** Done (LXX).\
+
+Case studies\
+
+-L125: Figure?? please check it.
+
+**R8:**\
+
+Discussion:\
+
+-L179-183: What is considered a "good internet connection"? Authors should provide objective data on internet connection.
+
+**R9:**
+
+## 
+Reviewer #3
+
+This article attempts to show the utility and application of a R package to download high resolution meteorological data in Europe. In general, the presented package is interesting and important, but I have still several comments.\
+
+General comments.\
+
+The graphical representation could be improved using the full potential of tidyverse, a better projection and a nicer layout. I would add a daily time series plot and it could be of greater interest to show a country or region instead of a bounding box.\
+
+**R10:** We appreciate the comments of the reviewer. We have improved the graphical representation by changing the projection of Figure 1 and providing a one-month-length daily time series of XXX place in Figure 2.
+
+*I will be in charge of this one. What do you think of the plots I am proposing?*\
+
+Minor comments.\
+
+L63: Mortality of plants, I guess? Sentence is not really clear.
+
+**R11:** We meant mortality of plants (LXX)\
+
+L81-: I miss a comment on the validation of the dataset.
+
+**R12:** *Christoph, could you add some details on this?*\
+
+L100: Add package references for classs SpatRaster (Terra)
+
+**R13:** Done (LXX).\
+
+L116: If you use the tidyverse grammar, why not using tibble() instead of data.frame()?
+
+**R14:** *Paco, what do you think about including the tibbles as a new input? I can do it.*\
+
+L128: I would recommend using the sf package to create the geometry, I think the use of sf is more common.
+
+**R15:** *Paco, could you answer this one?*\
+
+L153: I would change the tidyverse pipe %\>% to the R Base \|\>
+
+**R16:** Done (LXX).\
+
+L159: An easier way is to use lubridate::year(), it is not needed as factor for grouping; if you use pivot_longer() to get a tidier tibble it would make it easy to apply summarise().
+
+**R17:** Thanks for the programming suggestions to make the code more efficient. We have included the function lubridate::year() and we have removed as.factor() (LXX).
+
+*I don't understand what the reviewer is suggesting with pivot_longer()*
+
+
+
+
