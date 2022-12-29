@@ -28,7 +28,7 @@ This manuscript outlines the development of a new API that will allow users to d
 
 My overall recommendation is to accept with very minor revisions. The only real criticism I have is that this paper could utilize more computer science and software developer language. For example, this is clearly an API, but it does not use that term or any typical language to explain its syntax. I would recommend that because this is a software paper, that the authors utilize a little more software development language.
 
-###### **R2:** We have included the API as part of the description of the package (LXX): "As an API (Application Programming Interface), by design, *easyclimate* yields tidy datasets [@wickham_tidy_2014] that facilitate calculation of alternative climatic variables and indices following the [tidyverse](https://www.tidyverse.org/) philosophy. Also, the results of the package *easyclimate* can be used directly or serve as input to calculate climatic indices with other packages, such as ClimInd [@climind] or SPEI [@spei] (see some examples in the vignette [Calculating basic climatic indices with data from easyclimate](https://verughub.github.io/easyclimate/articles/climatic-indices.html)). Furthermore, *easyclimate* might be integrated in other software providing environmental variables (e.g. geodata [@geodata2021])."
+###### **R2:** We have included the API as part of the description of the package (LXX): "As an API (Application Programming Interface), by design, easyclimate yields tidy datasets [@wickham_tidy_2014] that facilitate calculation of alternative climatic variables and indices following the tidyverse philosophy [@wickham_welcome_2019]. Also, the results of the package easyclimate can be used directly or serve as input to calculate climatic indices with other packages, such as ClimInd [@climind] or SPEI [@spei] (see some examples in the vignette Calculating basic climatic indices with data from easyclimate). Furthermore, easyclimate might be integrated in other software providing environmental variables (e.g. geodata [@geodata2021])."
 
 ## **Reviewer #2**
 
@@ -45,7 +45,7 @@ Introduction
 
 -   L82: The main purpose of the library is to download downscaled climate data. Perhaps some more detail could be given on how the downscaling works, with a schematic figure of this procedure. This will provide more complete information about the data the user is downloading.
 
-###### **R5:** Some more detail on the downscaling procedure as well as a schematic figure (current Figure 2) have been added (LXX).
+###### **R5:** Some more detail on the downscaling procedure as well as a new schematic figure (Figure 2) have been added to the revised version (LXX).
 
 Why the new versions of the downscaling method do not use EOBS 0.1º?
 
@@ -77,7 +77,7 @@ General comments.
 
 The graphical representation could be improved using the full potential of tidyverse, a better projection and a nicer layout. I would add a daily time series plot and it could be of greater interest to show a country or region instead of a bounding box.
 
-###### **R10:** We appreciate the comments of the reviewer. In Figure 1, we have improved the graphical representation by changing the projection to Lambert Azimuthal Equal Area projection, ETRS89 datum, which is the official for Europe. In Figure 3 (previous Figure 2), we provide a ten-days-length daily time series of Wien region, Austria, according to the suggestion.
+###### **R10:** We appreciate the comments of the reviewer. In Figure 1, we have improved the graphical representation by changing the projection to Lambert Azimuthal Equal Area projection, ETRS89 datum, which is the official for Europe. In the Figure 3 of the revised version (previous Figure 2), we provide a ten-days-length daily time series of Tirol region, Austria, according to the suggestion.
 
 Minor comments.
 
@@ -85,7 +85,7 @@ L63: Mortality of plants, I guess? Sentence is not really clear.
 
 ###### **R11:** We meant mortality of plants (LXX)
 
-L81-: I miss a comment on the validation of the dataset.
+L81: I miss a comment on the validation of the dataset.
 
 ###### **R12:** Some information regarding the evaluation and validation of the dataset has been added (LXX).
 
@@ -99,7 +99,7 @@ L116: If you use the tidyverse grammar, why not using tibble() instead of data.f
 
 L128: I would recommend using the sf package to create the geometry, I think the use of sf is more common.
 
-###### **R15:** We have changed how we create Figure 3 and we do not create the vectorial geometry but we download it now (see R10).
+###### **R15:** We have changed the way we create Figure 3 and in the revised version of the manuscript we do not create the vectorial geometry using *terra* package but we download it with *geodata* (see R10).
 
 L153: I would change the tidyverse pipe %\>% to the R Base \|\>
 
