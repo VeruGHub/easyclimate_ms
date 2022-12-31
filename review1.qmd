@@ -1,14 +1,14 @@
 ---
 title: "Point by point responses to reviewers"
 
-author: "Verónica Cruz-Alonso (ORCID: 0000-0002-0642-036X) ^1,2^ §, 
-    Christoph Pucher (ORCID: 0000-0002-9269-1907) ^3^ §, 
-    Sophia Ratcliffe (ORCID: 0000-0001-9284-7900) ^4^,
-    Paloma Ruiz-Benito (ORCID: 0000-0002-2781-5870) ^2,5^,
-    Julen Astigarraga (ORCID: 0000-0001-9520-3713) ^2^,
-    Mathias Neumann (ORCID: 0000-0003-2472-943X) ^3^,
-    Hubert Hasenauer (ORCID: 0000-0003-3469-4031) ^3^,
-    Francisco Rodríguez-Sánchez (ORCID: 0000-0002-7981-1599) ^6,7^"
+author: "Verónica Cruz-Alonso (ORCID: 0000-0002-0642-036X), 
+    Christoph Pucher (ORCID: 0000-0002-9269-1907), 
+    Sophia Ratcliffe (ORCID: 0000-0001-9284-7900),
+    Paloma Ruiz-Benito (ORCID: 0000-0002-2781-5870),
+    Julen Astigarraga (ORCID: 0000-0001-9520-3713),
+    Mathias Neumann (ORCID: 0000-0003-2472-943X),
+    Hubert Hasenauer (ORCID: 0000-0003-3469-4031),
+    Francisco Rodríguez-Sánchez (ORCID: 0000-0002-7981-1599)"
 
 format: 
   docx: 
@@ -28,7 +28,7 @@ This manuscript outlines the development of a new API that will allow users to d
 
 My overall recommendation is to accept with very minor revisions. The only real criticism I have is that this paper could utilize more computer science and software developer language. For example, this is clearly an API, but it does not use that term or any typical language to explain its syntax. I would recommend that because this is a software paper, that the authors utilize a little more software development language.
 
-###### **R2:** We have included the API as part of the description of the package (LXX): "As an API (Application Programming Interface), by design, easyclimate yields tidy datasets [@wickham_tidy_2014] that facilitate calculation of alternative climatic variables and indices following the tidyverse philosophy [@wickham_welcome_2019]. Also, the results of the package easyclimate can be used directly or serve as input to calculate climatic indices with other packages, such as ClimInd [@climind] or SPEI [@spei] (see some examples in the vignette Calculating basic climatic indices with data from easyclimate). Furthermore, easyclimate might be integrated in other software providing environmental variables (e.g. geodata [@geodata2021])."
+###### **R2:** We have included the API as part of the description of the package (L127): "As an API (Application Programming Interface), by design, easyclimate yields tidy datasets [@wickham_tidy_2014] that facilitate calculation of alternative climatic variables and indices following the tidyverse philosophy [@wickham_welcome_2019]. Also, the results of the package easyclimate can be used directly or serve as input to calculate climatic indices with other packages, such as ClimInd [@climind] or SPEI [@spei] (see some examples in the vignette Calculating basic climatic indices with data from easyclimate). Furthermore, easyclimate might be integrated in other software providing environmental variables (e.g. geodata [@geodata2021])."
 
 ## **Reviewer #2**
 
@@ -41,11 +41,11 @@ Introduction
 
 -   L75: Replace "(longitude: -24.5º - 45.25º; latitude: 25.25º - 75.5º;" by "(24.5ºW, 45.25ºE, 25.25ºN, 75.5ºN".
 
-###### **R4:** Done (LXX).
+###### **R4:** Done (L75).
 
 -   L82: The main purpose of the library is to download downscaled climate data. Perhaps some more detail could be given on how the downscaling works, with a schematic figure of this procedure. This will provide more complete information about the data the user is downloading.
 
-###### **R5:** Some more detail on the downscaling procedure as well as a new schematic figure (Figure 2) have been added to the revised version (LXX).
+###### **R5:** Some more detail on the downscaling procedure as well as a new schematic figure (Figure 2) have been added to the revised version (L88).
 
 Why the new versions of the downscaling method do not use EOBS 0.1º?
 
@@ -55,7 +55,7 @@ Functionality
 
 -   L100: Indicate that spatRaster is a Terra class.
 
-###### **R7:** Done (LXX).
+###### **R7:** Done (L125).
 
 Case studies
 
@@ -67,7 +67,7 @@ Discussion:
 
 -   L179-183: What is considered a "good internet connection"? Authors should provide objective data on internet connection.
 
-###### **R9:** At least 10 MB/s. According to this report (<https://fairinternetreport.com/research/usa-vs-europe-internet-speed-analysis>), median download speed across Europe is 38 MB/s, with nearly all European countries having \>10 MB/s average download speed. We have included this information in LXX.
+###### **R9:** At least 10 MB/s. According to this report (<https://fairinternetreport.com/research/usa-vs-europe-internet-speed-analysis>), median download speed across Europe is 38 MB/s, with nearly all European countries having \>10 MB/s average download speed. We have included this information in L200.
 
 ## Reviewer #3
 
@@ -83,15 +83,15 @@ Minor comments.
 
 L63: Mortality of plants, I guess? Sentence is not really clear.
 
-###### **R11:** We meant mortality of plants (LXX)
+###### **R11:** We meant mortality of plants (L63)
 
 L81: I miss a comment on the validation of the dataset.
 
-###### **R12:** Some information regarding the evaluation and validation of the dataset has been added (LXX).
+###### **R12:** Some information regarding the evaluation and validation of the dataset has been added (L104).
 
 L100: Add package references for classs SpatRaster (Terra)
 
-###### **R13:** Done (LXX).
+###### **R13:** Done (L125).
 
 L116: If you use the tidyverse grammar, why not using tibble() instead of data.frame()?
 
@@ -103,11 +103,11 @@ L128: I would recommend using the sf package to create the geometry, I think the
 
 L153: I would change the tidyverse pipe %\>% to the R Base \|\>
 
-###### **R16:** Done (LXX).
+###### **R16:** Done (L173, 177-179).
 
 L159: An easier way is to use lubridate::year(), it is not needed as factor for grouping; if you use pivot_longer() to get a tidier tibble it would make it easy to apply summarise().
 
-###### **R17:** Thanks for the programming suggestions to make the code more efficient. We have included the function lubridate::year() and we have removed as.factor() (LXX). We have not included pivot_longer() since the objective of the example is to show a simple example of how to use the data and variables you can easily get. Using pivot_longer implies to have in the same column values for temperature and precipitation and it can be more confusing.
+###### **R17:** Thanks for the programming suggestions to make the code more efficient. We have included the function lubridate::year() and we have removed as.factor() (L178). We have not included pivot_longer() since the objective of the example is to show a simple example of how to use the data and variables you can easily get. Using pivot_longer implies to have in the same column values for temperature and precipitation and it can be more confusing.
 
 # References
 
